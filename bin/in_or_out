@@ -1,0 +1,4 @@
+#! /bin/bash
+
+cd "${0%/*}"
+bundle exec ruby ../lib/in_or_out.rb $@
