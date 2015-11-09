@@ -13,13 +13,12 @@ And it outputs a CSV file with a new column containing the label of the polygon 
 Requirements
 ----
 
-* Ruby (of course!)
-* Just run `bundle install`
+Just `rake install`. If you use `rbenv` don't forget to `rbenv rehash`.
 
 Usage
 ----
 
-Type `bin/in_or_out help` for the full help.
+Type `in_or_out help` for the full help.
 
 ```bash
 Commands:
@@ -29,7 +28,7 @@ Commands:
   # Describe available commands or one specific command
 ```
 
-Acknowledgments
+Acknowledgements
 ----
 
 * Finding out if a point is inside a polygon: http://jakescruggs.blogspot.com/2009/07/point-inside-polygon-in-ruby.html

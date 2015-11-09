@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/square/border_patrol
+  remote: https://github.com/square/border_patrol.git
   revision: 72c50ea17c89f7fa89fbaed25ad3db3fa1d8eeb1
   specs:
     border_patrol (0.2.1)

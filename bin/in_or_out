@@ -1,4 +1,5 @@
-#! /bin/bash
+#! /usr/bin/env ruby
 
-cd "${0%/*}"
-bundle exec ruby ../lib/in_or_out.rb $@
+require 'in_or_out'
+
+InOrOut::Main.start
