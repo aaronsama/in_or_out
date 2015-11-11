@@ -20,4 +20,7 @@ Gem::Specification.new do |gem|
   gem.version       = InOrOut::VERSION
 
   gem.add_runtime_dependency 'border_patrol', ['>= 0.2.1']
+  gem.add_runtime_dependency 'geocoder', ['~> 1.2.11']
+
+  gem.add_development_dependency "rspec"
 end

@@ -4,6 +4,7 @@ require 'csv'
 
 require 'in_or_out/placemark_name'
 require 'in_or_out/group'
+require 'in_or_out/geocode'
 
 # require 'in_or_out/placemark_name'
 # require 'pry'
@@ -36,6 +37,27 @@ module InOrOut
       else
         puts "ERROR: The columns '#{options[:latitude_column]}' and '#{options[:longitude_column]}' could not be found in the headers of #{csv_file}"
       end
+    end
+
+    desc "geocode CSV_FILE OUTPUT_FILE", "gecode all the entries in the input CSV_FILE"
+    method_option :address, desc: "The format of the address using the format %{...} to wrap column names. Example %{street} %{city}", required: true
+    def geocode(csv_file, output_file)
+      in_data = CSV.read(csv_file, headers: true)
+
+      puts "Geocoding #{in_data.size} entries. Please wait..."
+
+      begin
+        out_data = Geocode.geocode(in_data)
+
+        CSV.open(output_file, "wb", write_headers: true, headers: (in_data.headers + ["latitude","longitude"])) do |output_csv|
+          out_data.each do |line|
+            output_csv << line
+          end
+        end
+      rescue AddressTemplateError => error
+        puts error
+      end
+
     end
   end
 end
