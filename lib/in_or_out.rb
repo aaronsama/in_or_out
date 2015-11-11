@@ -41,15 +41,21 @@ module InOrOut
 
     desc "geocode CSV_FILE OUTPUT_FILE", "gecode all the entries in the input CSV_FILE"
     method_option :address, desc: "The format of the address using the format %{...} to wrap column names. Example %{street} %{city}", required: true
+    method_option :api_key, desck: "Your Google Maps API key"
     def geocode(csv_file, output_file)
+
+      if options[:api_key]
+        Geocoder.configure api_key: options[:api_key]
+      end
+
       in_data = CSV.read(csv_file, headers: true)
 
       puts "Geocoding #{in_data.size} entries. Please wait..."
 
       begin
-        out_data = Geocode.geocode(in_data)
+        out_data = Geocode.geocode(in_data, options[:address])
 
-        CSV.open(output_file, "wb", write_headers: true, headers: (in_data.headers + ["latitude","longitude"])) do |output_csv|
+        CSV.open(output_file, "wb", write_headers: true, headers: in_data.headers) do |output_csv|
           out_data.each do |line|
             output_csv << line
           end
