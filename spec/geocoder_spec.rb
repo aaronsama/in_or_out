@@ -6,10 +6,10 @@ describe InOrOut::Geocode do
     let(:data) { { "street"=>"via Sommarive", "number"=>"18", "zip"=>"38123", "city"=>"Trento", "state"=>"TN" } }
 
     describe "when a valid template is provided" do
-      let(:template) { "%{street} %{number}, %{zip} %{city} (%{state})" }
+      let(:template) { InOrOut::Template.new "%{street} %{number}, %{zip} %{city} (%{state})", data.keys }
 
       it "returns a valid address string" do
-        expect(InOrOut::Geocode.send(:build_address_string_for, data, template)).to eq("via Sommarive 18, 38123 Trento (TN)")
+        expect(template.build_address_string_for data).to eq("via Sommarive 18, 38123 Trento (TN)")
       end
     end
   end
