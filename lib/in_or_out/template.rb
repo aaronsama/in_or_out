@@ -5,10 +5,9 @@ module InOrOut
   class Template
 
     def initialize(template_string, headers)
-      @headers = headers
       @template_string = template_string
 
-      unless parse_column_names
+      unless parse_column_names(headers)
         raise AddressTemplateError.new, "Some keys in the address template do not match any column"
       end
     end
@@ -25,9 +24,9 @@ module InOrOut
 
     private
 
-    def parse_column_names
+    def parse_column_names headers
       @columns = @template_string.scan(/\%\{([^\}]+)\}/).flatten
-      (@columns & @headers) == @columns
+      (@columns & headers) == @columns
     end
 
   end
